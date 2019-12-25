@@ -137,7 +137,7 @@ export default class Calendar extends React.Component {
                 formattedDate = format(day, dateFormat);
                 const cloneDay = day;
                 days.push(
-                    <Link to="/">
+                    <Link to="/" key={i}>
                         <div
                             className={`col cell ${
                                 !isSameMonth(day, monthStart)
