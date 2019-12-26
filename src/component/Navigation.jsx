@@ -318,11 +318,6 @@ export default function Navigation(props) {
                         <Route path={props.appRoutes.Login.url}>
                             <Login pageName={props.appRoutes.Login.pageName} />
                         </Route>
-                        <Route path={props.appRoutes.Logout.url}>
-                            <Logout
-                                pageName={props.appRoutes.Logout.pageName}
-                            />
-                        </Route>
                         <Route path={props.appRoutes.Home.url}>
                             <Home
                                 pageName={props.appRoutes.Home.pageName}
