@@ -28,7 +28,6 @@ import Home from "./Home";
 import Calendar from "./Calendar";
 import Settings from "./Settings";
 import Login from "./Login";
-import Logout from "./Logout";
 
 //API
 import HandleLogout from "../api/HandleLogout";
@@ -115,7 +114,7 @@ export default function Navigation(props) {
         setOpen(false);
     };
 
-    if (loginState === false) {
+    if (loginState === false || loginState === null) {
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -138,7 +137,7 @@ export default function Navigation(props) {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" noWrap>
-                            Material App Skeleton
+                            Material App Skeleton | Logged Out
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -234,7 +233,7 @@ export default function Navigation(props) {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" noWrap>
-                            Material App Skeleton
+                            Material App Skeleton | Logged In
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -318,11 +317,6 @@ export default function Navigation(props) {
                         </Route>
                         <Route path={props.appRoutes.Login.url}>
                             <Login pageName={props.appRoutes.Login.pageName} />
-                        </Route>
-                        <Route path={props.appRoutes.Logout.url}>
-                            <Logout
-                                pageName={props.appRoutes.Logout.pageName}
-                            />
                         </Route>
                         <Route path={props.appRoutes.Home.url}>
                             <Home

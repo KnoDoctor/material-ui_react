@@ -24,7 +24,7 @@ export default function Counter() {
     });
 
     //RENDER
-    if (loginState === false) {
+    if (loginState === false || loginState === null) {
         return (
             <div>
                 <h1>Logged Out</h1>
