@@ -5,4 +5,6 @@ export default function HandleLogout() {
     localStorage.setItem("loggedIn", "false");
 
     sessionStorage.setItem("upcomingTrips", []);
+
+    window.location = "/";
 }

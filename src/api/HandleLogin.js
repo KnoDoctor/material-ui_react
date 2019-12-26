@@ -74,4 +74,5 @@ export default function handleSubmit(event, email, password) {
         localStorage.setItem("contactID", "");
         localStorage.setItem("loggedIn", "false");
     }
+    window.location = "/";
 }

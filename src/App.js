@@ -1,18 +1,16 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 import Navigation from "./component/Navigation";
-import Calendar from "./component/Calendar";
 
 //Bring in React Router
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-// //Bring In API
-// import GetUpcomingTrips from "./api/GetUpcomingTrips";
+//Bring In API
+import GetUpcomingTrips from "./api/GetUpcomingTrips";
 
-// //Call APIs
-// GetUpcomingTrips();
+//Call APIs
+GetUpcomingTrips();
 
 //Setup App Routes
 const appRoutes = {
