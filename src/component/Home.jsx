@@ -2,6 +2,8 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
+import Counter from "../testing/Counter";
+
 const useStyles = makeStyles({
     root: {
         width: "100%",
@@ -24,9 +26,7 @@ export default function Home(props) {
                 <Typography variant="h4" gutterBottom>
                     Upcoming Trips
                 </Typography>
-                <Typography variant="body1" gutterBottom>
-                    {props.upcomingTrips}
-                </Typography>
+                <Counter />
             </div>
         </div>
     );
