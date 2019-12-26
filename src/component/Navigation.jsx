@@ -1,4 +1,6 @@
 import React from "react";
+
+//Material-UI Stuff
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -21,13 +23,17 @@ import EventIcon from "@material-ui/icons/Event";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 
+//COMPONENTS
 import Home from "./Home";
 import Calendar from "./Calendar";
 import Settings from "./Settings";
 import Login from "./Login";
 import Logout from "./Logout";
-import Counter from "../testing/Counter";
 
+//API
+import HandleLogout from "../api/HandleLogout";
+
+//Router
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -93,7 +99,10 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function MiniDrawer(props) {
+export default function Navigation(props) {
+    const [loginState] = React.useState(
+        JSON.parse(localStorage.getItem("loggedIn"))
+    );
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -106,127 +115,224 @@ export default function MiniDrawer(props) {
         setOpen(false);
     };
 
-    return (
-        <div className={classes.root}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open
-                })}
-            >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: open
-                        })}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Material App Skeleton
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open
-                })}
-                classes={{
-                    paper: clsx({
+    if (loginState === false) {
+        return (
+            <div className={classes.root}>
+                <CssBaseline />
+                <AppBar
+                    position="fixed"
+                    className={clsx(classes.appBar, {
+                        [classes.appBarShift]: open
+                    })}
+                >
+                    <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            className={clsx(classes.menuButton, {
+                                [classes.hide]: open
+                            })}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h6" noWrap>
+                            Material App Skeleton
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    className={clsx(classes.drawer, {
                         [classes.drawerOpen]: open,
                         [classes.drawerClose]: !open
-                    })
-                }}
-                open={open}
-            >
-                <div className={classes.toolbar}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === "rtl" ? (
-                            <ChevronRightIcon />
-                        ) : (
-                            <ChevronLeftIcon />
-                        )}
-                    </IconButton>
-                </div>
-                <Divider />
-                <List>
-                    <Link to={props.appRoutes.Home.url}>
-                        <ListItem button key="Home">
-                            <ListItemIcon>
-                                <HomeIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Home" />
-                        </ListItem>
-                    </Link>
-                    <Link to={props.appRoutes.Calendar.url}>
-                        <ListItem button key="Calendar">
-                            <ListItemIcon>
-                                <EventIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Calendar" />
-                        </ListItem>
-                    </Link>
-                </List>
-                <Divider />
-                <List>
-                    <Link to={props.appRoutes.Settings.url}>
-                        <ListItem button key="Settings">
-                            <ListItemIcon>
-                                <SettingsIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Settings" />
-                        </ListItem>
-                    </Link>
-                    <Link to={props.appRoutes.Login.url}>
-                        <ListItem button key="Login">
-                            <ListItemIcon>
-                                <ThumbUpIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Login" />
-                        </ListItem>
-                    </Link>
-                    <Link to={props.appRoutes.Logout.url}>
+                    })}
+                    classes={{
+                        paper: clsx({
+                            [classes.drawerOpen]: open,
+                            [classes.drawerClose]: !open
+                        })
+                    }}
+                    open={open}
+                >
+                    <div className={classes.toolbar}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === "rtl" ? (
+                                <ChevronRightIcon />
+                            ) : (
+                                <ChevronLeftIcon />
+                            )}
+                        </IconButton>
+                    </div>
+                    <Divider />
+                    <List>
+                        <Link to={props.appRoutes.Home.url}>
+                            <ListItem button key="Home">
+                                <ListItemIcon>
+                                    <HomeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Home" />
+                            </ListItem>
+                        </Link>
+                    </List>
+                    <Divider />
+                    <List>
+                        <Link to={props.appRoutes.Login.url}>
+                            <ListItem button key="Login">
+                                <ListItemIcon>
+                                    <ThumbUpIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Login" />
+                            </ListItem>
+                        </Link>
+                        {/* <Link to={props.appRoutes.Logout.url}>
                         <ListItem button key="Logout">
                             <ListItemIcon>
                                 <ExitToAppIcon />
                             </ListItemIcon>
                             <ListItemText primary="Logout" />
                         </ListItem>
-                    </Link>
-                </List>
-            </Drawer>
-            <main className={classes.content} style={{ marginTop: "64px" }}>
-                <Switch>
-                    <Route path={props.appRoutes.Calendar.url}>
-                        <Calendar />
-                    </Route>
-                    <Route path={props.appRoutes.Settings.url}>
-                        <Settings
-                            pageName={props.appRoutes.Settings.pageName}
-                        />
-                    </Route>
-                    <Route path={props.appRoutes.Login.url}>
-                        <Login pageName={props.appRoutes.Login.pageName} />
-                    </Route>
-                    <Route path={props.appRoutes.Logout.url}>
-                        <Logout pageName={props.appRoutes.Logout.pageName} />
-                    </Route>
-                    <Route path={props.appRoutes.Home.url}>
-                        <Home
-                            pageName={props.appRoutes.Home.pageName}
-                            message={props.message}
-                        />
-                        <Counter message={props.message} />
-                    </Route>
-                </Switch>
-            </main>
-        </div>
-    );
+                    </Link> */}
+                    </List>
+                </Drawer>
+                <main className={classes.content} style={{ marginTop: "64px" }}>
+                    <Switch>
+                        <Route path={props.appRoutes.Login.url}>
+                            <Login pageName={props.appRoutes.Login.pageName} />
+                        </Route>
+                        <Route path={props.appRoutes.Home.url}>
+                            <Home
+                                pageName={props.appRoutes.Home.pageName}
+                                message={props.message}
+                            />
+                        </Route>
+                    </Switch>
+                </main>
+            </div>
+        );
+    } else {
+        return (
+            <div className={classes.root}>
+                <CssBaseline />
+                <AppBar
+                    position="fixed"
+                    className={clsx(classes.appBar, {
+                        [classes.appBarShift]: open
+                    })}
+                >
+                    <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            className={clsx(classes.menuButton, {
+                                [classes.hide]: open
+                            })}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h6" noWrap>
+                            Material App Skeleton
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    className={clsx(classes.drawer, {
+                        [classes.drawerOpen]: open,
+                        [classes.drawerClose]: !open
+                    })}
+                    classes={{
+                        paper: clsx({
+                            [classes.drawerOpen]: open,
+                            [classes.drawerClose]: !open
+                        })
+                    }}
+                    open={open}
+                >
+                    <div className={classes.toolbar}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === "rtl" ? (
+                                <ChevronRightIcon />
+                            ) : (
+                                <ChevronLeftIcon />
+                            )}
+                        </IconButton>
+                    </div>
+                    <Divider />
+                    <List>
+                        <Link to={props.appRoutes.Home.url}>
+                            <ListItem button key="Home">
+                                <ListItemIcon>
+                                    <HomeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Home" />
+                            </ListItem>
+                        </Link>
+                        <Link to={props.appRoutes.Calendar.url}>
+                            <ListItem button key="Calendar">
+                                <ListItemIcon>
+                                    <EventIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Calendar" />
+                            </ListItem>
+                        </Link>
+                    </List>
+                    <Divider />
+                    <List>
+                        <Link to={props.appRoutes.Settings.url}>
+                            <ListItem button key="Settings">
+                                <ListItemIcon>
+                                    <SettingsIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Settings" />
+                            </ListItem>
+                        </Link>
+                        <ListItem button key="Logout" onClick={HandleLogout}>
+                            <ListItemIcon>
+                                <ExitToAppIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Logout" />
+                        </ListItem>
+                        {/* <Link to={props.appRoutes.Logout.url}>
+                        <ListItem button key="Logout">
+                            <ListItemIcon>
+                                <ExitToAppIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Logout" />
+                        </ListItem>
+                    </Link> */}
+                    </List>
+                </Drawer>
+                <main className={classes.content} style={{ marginTop: "64px" }}>
+                    <Switch>
+                        <Route path={props.appRoutes.Calendar.url}>
+                            <Calendar />
+                        </Route>
+                        <Route path={props.appRoutes.Settings.url}>
+                            <Settings
+                                pageName={props.appRoutes.Settings.pageName}
+                            />
+                        </Route>
+                        <Route path={props.appRoutes.Login.url}>
+                            <Login pageName={props.appRoutes.Login.pageName} />
+                        </Route>
+                        <Route path={props.appRoutes.Logout.url}>
+                            <Logout
+                                pageName={props.appRoutes.Logout.pageName}
+                            />
+                        </Route>
+                        <Route path={props.appRoutes.Home.url}>
+                            <Home
+                                pageName={props.appRoutes.Home.pageName}
+                                message={props.message}
+                            />
+                        </Route>
+                    </Switch>
+                </main>
+            </div>
+        );
+    }
 }
