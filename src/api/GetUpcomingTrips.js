@@ -24,5 +24,9 @@ export default function GetUpcomingTrips() {
         JSON.stringify({ upcomingTrips: upcomingTrips })
     );
 
+    if (upcomingTrips[0].success === false) {
+        localStorage.setItem("loggedIn", false);
+    }
+
     //return upcomingTrips;
 }
