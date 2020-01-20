@@ -5,8 +5,8 @@ import GetUpcomingTrips from "../api/GetUpcomingTrips";
 
 export default function handleSubmit(event, email, password) {
     event.preventDefault();
-    const e = "barfieldjt@gmail.com";
-    const p = "tripJB2019!";
+    const e = email;
+    const p = password;
     let hashed = ("" + SHA512(p)).toUpperCase();
     let HASHED =
         "41787F243914926D0CD7473CDBF3785C5782AC466850862A379094F31E20850D185D769515A10988A6A7A4403884169C29A3C56FC3F7A59F7BF1E2F2BF0A38C9";

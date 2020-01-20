@@ -42,18 +42,18 @@ export default function Counter() {
                             setMessage(
                                 JSON.parse(
                                     sessionStorage.getItem("upcomingTrips")
-                                ).upcomingTrips[0].p15_name
+                                ).upcomingTrips[0].p15_guestsid
                             )
                         }
                     >
-                        Get Guest Name
+                        Get Guest ID
                     </button>
                     <button
                         onClick={() =>
                             setMessage(
                                 JSON.parse(
                                     sessionStorage.getItem("upcomingTrips")
-                                ).upcomingTrips[0].p15_departuresguestsidname
+                                ).upcomingTrips[0].p15_tripname
                             )
                         }
                     >
