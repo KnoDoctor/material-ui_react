@@ -18,9 +18,6 @@ export default function Home(props) {
     return (
         <div className="container">
             <div className={classes.root}>
-                <Typography variant="h2" gutterBottom>
-                    {props.pageName}
-                </Typography>
                 <Counter />
             </div>
         </div>

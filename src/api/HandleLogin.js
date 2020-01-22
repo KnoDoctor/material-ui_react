@@ -2,6 +2,8 @@ import SHA512 from "crypto-js/sha512";
 
 //Bring In API
 import GetUpcomingTrips from "../api/GetUpcomingTrips";
+import GetContactInfo from "../api/GetContactInfo";
+import GetTripFinderData from "../api/GetTripFinderData";
 
 export default function HandleLogin(event, email, password) {
     event.preventDefault();
@@ -62,6 +64,8 @@ export default function HandleLogin(event, email, password) {
         localStorage.setItem("loggedIn", "true");
 
         GetUpcomingTrips();
+        GetContactInfo();
+        GetTripFinderData();
 
         // console.log(this.state);
     } else {

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
-import GetTripByTripCode from "../api/GetTripByTripCode";
+import GetSubReddit from "../api/GetSubReddit";
+import GetTripFinderData from "../api/GetTripFinderData";
 
 export default function Counter() {
     //SET LOGIN STATE
@@ -10,10 +12,17 @@ export default function Counter() {
 
     //SET INITIAL STATE OF VARIABLES
     let initialMessage;
+    let name;
     if (loginState === false) initialMessage = "You are logged out";
     else {
         initialMessage = JSON.parse(sessionStorage.getItem("upcomingTrips"))
             .upcomingTrips[0].p15_name;
+        name =
+            JSON.parse(sessionStorage.getItem("contactInfo")).contactInfo
+                .p15_title +
+            " " +
+            JSON.parse(sessionStorage.getItem("contactInfo")).contactInfo
+                .lastname;
     }
 
     //MANAGE STATE OF VARIABLES
@@ -22,7 +31,9 @@ export default function Counter() {
     const [tripCode, setTripCode] = useState("");
     const [tripName, setTripName] = useState("");
     const [tripActivityLevel, setTripActivityLevel] = useState("");
-    const [tripSupport, setTripSupport] = useState("No Trip Support");
+    const [tripSupport, setTripSupport] = useState("");
+    const [userTitle, setUserTitle] = useState(name);
+    const [subReddit, setSubReddit] = useState("");
 
     //PUSH CHANGES THROUGH USEEFFECT();
     // Similar to componentDidMount and componentDidUpdate:
@@ -42,7 +53,7 @@ export default function Counter() {
     } else {
         return (
             <div>
-                <h1>Logged In</h1>
+                <h1>Hello {name}</h1>
                 <div>
                     <p>{message}</p>
                     <button
@@ -70,6 +81,39 @@ export default function Counter() {
                     <p>You clicked {count} times</p>
                     <button onClick={() => setCount(count - 1)}>-1</button>
                     <button onClick={() => setCount(count + 1)}>+1</button>
+                    <p></p>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        name="subReddit"
+                        label="Sub Reddit"
+                        type="subReddit"
+                        id="subReddit"
+                        autoComplete="current-trip"
+                        value={subReddit}
+                        onChange={event => setSubReddit(event.target.value)}
+                    />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={function() {
+                            GetSubReddit(subReddit);
+                            setMessage("Sub Reddit Request Complete");
+                        }}
+                    >
+                        Get Sub Reddit Data
+                    </Button>
+                    <p></p>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={function() {
+                            GetTripFinderData();
+                        }}
+                    >
+                        Get Tripfinder Data
+                    </Button>
                 </div>
             </div>
         );
