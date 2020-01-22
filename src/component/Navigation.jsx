@@ -23,6 +23,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import EventIcon from "@material-ui/icons/Event";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
+import CardTravelIcon from "@material-ui/icons/CardTravel";
 
 //COMPONENTS
 import Home from "./Home";
@@ -30,6 +31,7 @@ import Calendar from "./Calendar";
 import Settings from "./Settings";
 import Login from "./Login";
 import TripCodeLookup from "./TripCodeLookup";
+import TripfinderDisplay from "./TripfinderDisplay";
 
 //API
 import HandleLogout from "../api/HandleLogout";
@@ -280,6 +282,14 @@ export default function Navigation(props) {
                                 <ListItemText primary="Trip Code Lookup" />
                             </ListItem>
                         </Link>
+                        <Link to={props.appRoutes.TripfinderDisplay.url}>
+                            <ListItem button key="TripfinderDisplay">
+                                <ListItemIcon>
+                                    <CardTravelIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Tripfinder Display" />
+                            </ListItem>
+                        </Link>
                         <Link to={props.appRoutes.Calendar.url}>
                             <ListItem button key="Calendar">
                                 <ListItemIcon>
@@ -319,6 +329,9 @@ export default function Navigation(props) {
                     <Switch>
                         <Route path={props.appRoutes.TripCodeLookup.url}>
                             <TripCodeLookup />
+                        </Route>
+                        <Route path={props.appRoutes.TripfinderDisplay.url}>
+                            <TripfinderDisplay />
                         </Route>
                         <Route path={props.appRoutes.Calendar.url}>
                             <Calendar />
