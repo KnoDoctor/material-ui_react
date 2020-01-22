@@ -19,6 +19,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import SettingsIcon from "@material-ui/icons/Settings";
 import HomeIcon from "@material-ui/icons/Home";
+import SearchIcon from "@material-ui/icons/Search";
 import EventIcon from "@material-ui/icons/Event";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
@@ -28,6 +29,7 @@ import Home from "./Home";
 import Calendar from "./Calendar";
 import Settings from "./Settings";
 import Login from "./Login";
+import TripCodeLookup from "./TripCodeLookup";
 
 //API
 import HandleLogout from "../api/HandleLogout";
@@ -270,6 +272,14 @@ export default function Navigation(props) {
                                 <ListItemText primary="Home" />
                             </ListItem>
                         </Link>
+                        <Link to={props.appRoutes.TripCodeLookup.url}>
+                            <ListItem button key="TripCodeLookup">
+                                <ListItemIcon>
+                                    <SearchIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Trip Code Lookup" />
+                            </ListItem>
+                        </Link>
                         <Link to={props.appRoutes.Calendar.url}>
                             <ListItem button key="Calendar">
                                 <ListItemIcon>
@@ -307,6 +317,9 @@ export default function Navigation(props) {
                 </Drawer>
                 <main className={classes.content} style={{ marginTop: "64px" }}>
                     <Switch>
+                        <Route path={props.appRoutes.TripCodeLookup.url}>
+                            <TripCodeLookup />
+                        </Route>
                         <Route path={props.appRoutes.Calendar.url}>
                             <Calendar />
                         </Route>
