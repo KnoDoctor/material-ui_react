@@ -3,14 +3,12 @@ import SHA512 from "crypto-js/sha512";
 //Bring In API
 import GetUpcomingTrips from "../api/GetUpcomingTrips";
 
-export default function handleSubmit(event, email, password) {
+export default function HandleLogin(event, email, password) {
     event.preventDefault();
     const e = email;
     const p = password;
     let hashed = ("" + SHA512(p)).toUpperCase();
-    let HASHED =
-        "41787F243914926D0CD7473CDBF3785C5782AC466850862A379094F31E20850D185D769515A10988A6A7A4403884169C29A3C56FC3F7A59F7BF1E2F2BF0A38C9";
-    console.log(HASHED);
+    console.log(hashed);
 
     console.log(`Login Attempted with the following credentials: \n
           email: ${e} \n
@@ -23,7 +21,7 @@ export default function handleSubmit(event, email, password) {
     var XHTTPR = new XMLHttpRequest();
     var O_ask = {
         userEmail: e,
-        userPassword: HASHED
+        userPassword: hashed
     };
     //var O_ask={'userEmail':'pgorbunov@gmail.com','userPassword':'1234567890!'};
     XHTTPR.open(

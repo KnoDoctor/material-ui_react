@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import handleSubmit from "../api/HandleLogin";
+import HandleLogin from "../api/HandleLogin";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -54,7 +54,7 @@ export default function SignIn() {
                     {email}
                 </Typography>
                 <Typography component="h1" variant="h5">
-                    {password}
+                    {password.replace(/[a-zA-Z0-9_!@#$%^&*()-=+]/g, "*")}
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
@@ -93,7 +93,7 @@ export default function SignIn() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={event => handleSubmit(event, email, password)}
+                        onClick={event => HandleLogin(event, email, password)}
                     >
                         Sign In
                     </Button>
