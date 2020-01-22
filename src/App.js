@@ -18,6 +18,10 @@ const appRoutes = {
         pageName: "Home",
         url: "/"
     },
+    TripCodeLookup: {
+        pageName: "Trip Code Lookup",
+        url: "/trip-code-lookup"
+    },
     Calendar: {
         pageName: "Calendar",
         url: "/calendar"

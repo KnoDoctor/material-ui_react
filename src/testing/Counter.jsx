@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 
+import TextField from "@material-ui/core/TextField";
+
+import GetTripByTripCode from "../api/GetTripByTripCode";
+
 export default function Counter() {
     //SET LOGIN STATE
     const [loginState] = useState(JSON.parse(localStorage.getItem("loggedIn")));
@@ -15,6 +19,10 @@ export default function Counter() {
     //MANAGE STATE OF VARIABLES
     const [count, setCount] = useState(0);
     const [message, setMessage] = useState(initialMessage);
+    const [tripCode, setTripCode] = useState("");
+    const [tripName, setTripName] = useState("");
+    const [tripActivityLevel, setTripActivityLevel] = useState("");
+    const [tripSupport, setTripSupport] = useState("No Trip Support");
 
     //PUSH CHANGES THROUGH USEEFFECT();
     // Similar to componentDidMount and componentDidUpdate:
