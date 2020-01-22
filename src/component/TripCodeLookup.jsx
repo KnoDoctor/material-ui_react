@@ -45,7 +45,7 @@ export default function TripCodeLookup() {
     const [tripCode, setTripCode] = useState("");
     const [tripName, setTripName] = useState("");
     const [tripActivityLevel, setTripActivityLevel] = useState("");
-    const [tripPhoto, setTripPhoto] = useState("");
+    const [tripPhoto, setTripPhoto] = useState(null);
     const [tripSupport, setTripSupport] = useState("");
     const [tripUrl, setTripUrl] = useState("");
     // const [tripSupport, setTripSupport] = useState("No Trip Support");
@@ -59,7 +59,7 @@ export default function TripCodeLookup() {
     });
 
     //RENDER
-    if (tripPhoto === "") {
+    if (tripPhoto === null) {
         return (
             <div className="container">
                 <div className={classes.root}>

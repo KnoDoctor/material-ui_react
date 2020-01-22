@@ -11,6 +11,7 @@ import GetUpcomingTrips from "./api/GetUpcomingTrips";
 
 //Call APIs
 GetUpcomingTrips();
+// GetContactInfo();
 
 //Setup App Routes
 const appRoutes = {
@@ -21,6 +22,10 @@ const appRoutes = {
     TripCodeLookup: {
         pageName: "Trip Code Lookup",
         url: "/trip-code-lookup"
+    },
+    TripfinderDisplay: {
+        pageName: "Tripfinder Display",
+        url: "/tripfinder-display"
     },
     Calendar: {
         pageName: "Calendar",
