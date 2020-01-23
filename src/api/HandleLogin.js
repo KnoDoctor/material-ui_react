@@ -14,7 +14,6 @@ export default function HandleLogin(event, email, password) {
 
     console.log(`Login Attempted with the following credentials: \n
           email: ${e} \n
-          password: ${p} \n
           hashed:${hashed}`);
 
     //LOGIN
@@ -63,9 +62,9 @@ export default function HandleLogin(event, email, password) {
         localStorage.setItem("contactID", contactID);
         localStorage.setItem("loggedIn", "true");
 
+        GetTripFinderData();
         GetUpcomingTrips();
         GetContactInfo();
-        GetTripFinderData();
 
         // console.log(this.state);
     } else {

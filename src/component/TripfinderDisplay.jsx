@@ -11,8 +11,6 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Icon from "@material-ui/core/Icon";
 
-import GetTripByTripCode from "../api/GetTripByTripCode";
-
 const useStyles = makeStyles({
     card: {
         maxWidth: 345
@@ -25,7 +23,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function TripCodeLookup() {
+export default function TripFinderDisplay() {
     const classes = useStyles();
     //SET LOGIN STATE
     const [loginState] = useState(JSON.parse(localStorage.getItem("loggedIn")));
@@ -72,8 +70,6 @@ export default function TripCodeLookup() {
         departureId: trip.tripDetails.p15_tripdeparturesid
     }));
 
-    console.log(tripFinderArray);
-
     function uniq(a) {
         var prims = { boolean: {}, number: {}, string: {} },
             objs = [];
@@ -89,6 +85,31 @@ export default function TripCodeLookup() {
     }
 
     let uniqueTripNames = uniq(tripNames);
+    let tripsNestedDepartures = [];
+
+    for (let i in uniqueTripNames) {
+        let departures = [];
+        for (let j in tripList) {
+            if (tripList[j].tripDetails.p15_tripname === uniqueTripNames[i]) {
+                let departureObject = {
+                    startDate: tripList[j].tripDetails.p15_startdate,
+                    departureCode: tripList[j].tripDetails.p15_departurecode
+                };
+
+                // departures.push(tripList[j].tripDetails.p15_startdate);
+                // departures.push(tripList[j].tripDetails.p15_departurecode);
+                departures.push(departureObject);
+            }
+        }
+        // console.log(departures);
+
+        tripsNestedDepartures.push({
+            tripName: uniqueTripNames[i],
+            departures: departures
+        });
+    }
+
+    console.log(tripsNestedDepartures);
 
     const tripListByUniqueName = uniqueTripNames.map(uniqueTrip => {
         return <li>{uniqueTrip}</li>;
@@ -110,12 +131,25 @@ export default function TripCodeLookup() {
         );
     });
 
+    const tripsWithNestedDepartures = tripsNestedDepartures.map(trip => {
+        return (
+            <li key={trip.tripname}>
+                <h2>{trip.tripName}</h2>
+                <ol>
+                    {trip.departures.map(departure => {
+                        return <li>{departure.departureCode}</li>;
+                    })}
+                </ol>
+            </li>
+        );
+    });
+
     //RENDER
     return (
         <div className="container">
             <div className={classes.root}>
                 <div>
-                    <ul>{tripNameAndDepature}</ul>
+                    <ul>{tripsWithNestedDepartures}</ul>
                 </div>
             </div>
         </div>
