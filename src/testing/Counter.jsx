@@ -13,8 +13,10 @@ export default function Counter() {
     //SET INITIAL STATE OF VARIABLES
     let initialMessage;
     let name;
-    if (loginState === false) initialMessage = "You are logged out";
-    else {
+    if (loginState === false) {
+        initialMessage = "You are logged out";
+        name = "";
+    } else {
         initialMessage = JSON.parse(sessionStorage.getItem("upcomingTrips"))
             .upcomingTrips[0].p15_name;
         name =

@@ -10,21 +10,4 @@ export default function GetSubReddit(subReddit) {
                 JSON.stringify({ subRedditData: myJson })
             );
         });
-
-    // let responseObject = JSON.parse(XHTTPR.response);
-
-    // console.log(responseObject);
-
-    // let contactInfo = responseObject;
-
-    // sessionStorage.setItem(
-    //     "contactInfo",
-    //     JSON.stringify({ contactInfo: contactInfo })
-    // );
-
-    // if (tripData.success === false) {
-    //     localStorage.setItem("loggedIn", false);
-    // }
-
-    //return upcomingTrips;
 }
