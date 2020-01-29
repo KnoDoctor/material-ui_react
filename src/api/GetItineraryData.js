@@ -1,4 +1,4 @@
-export default function GetTripFinderData() {
+export default function GetItineraryData() {
     /**
      * Changes XML to JSON
      * Modified version from here: http://davidwalsh.name/convert-xml-json
@@ -67,20 +67,21 @@ export default function GetTripFinderData() {
   */
 
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = "http://proxy.butterfield.com/data/data.xml"; // site that doesn’t send Access-Control-*
+    const url = "http://proxy.butterfield.com/itinerarycli/data.xml"; // site that doesn’t send Access-Control-*
     fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
         .then(response => response.text())
         .then(contents => {
             var xmlDOM = new DOMParser().parseFromString(contents, "text/xml");
             var jsonObject = xmlToJson(xmlDOM);
-            var tripFinderData = jsonObject.table1.Detail_Collection.Detail;
+            var tripItineraryData = jsonObject.Itineraries.Itinerary;
+
             sessionStorage.setItem(
-                "tripFinderData",
+                "tripItineraryData",
                 JSON.stringify({
-                    tripFinderData: tripFinderData
+                    tripItineraryData: tripItineraryData
                 })
             );
-            console.log(tripFinderData);
+            console.log(tripItineraryData);
         })
         .catch(() =>
             console.log(
