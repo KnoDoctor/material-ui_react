@@ -4,6 +4,7 @@ import SHA512 from "crypto-js/sha512";
 import GetUpcomingTrips from "../api/GetUpcomingTrips";
 import GetContactInfo from "../api/GetContactInfo";
 import GetTripFinderData from "../api/GetTripFinderData";
+import GetItineraryData from "../api/GetItineraryData";
 
 export default function HandleLogin(event, email, password) {
     event.preventDefault();
@@ -62,6 +63,7 @@ export default function HandleLogin(event, email, password) {
         localStorage.setItem("contactID", contactID);
         localStorage.setItem("loggedIn", "true");
 
+        GetItineraryData();
         GetTripFinderData();
         GetUpcomingTrips();
         GetContactInfo();

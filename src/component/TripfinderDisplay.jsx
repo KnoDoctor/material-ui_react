@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Icon from "@material-ui/core/Icon";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import IconButton from "@material-ui/core/IconButton";
+import InfoIcon from "@material-ui/icons/Info";
 
-const useStyles = makeStyles({
-    card: {
-        maxWidth: 345
-    },
-    media: {
-        height: 140
-    },
+const useStyles = makeStyles(theme => ({
     root: {
-        width: "100%"
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-around",
+        overflow: "hidden"
+    },
+    icon: {
+        color: "rgba(255, 255, 255, 0.54)"
     }
-});
+}));
 
 export default function TripFinderDisplay() {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(true);
+
+    const handleClick = () => {
+        setOpen(!open);
+    };
     //SET LOGIN STATE
     const [loginState] = useState(JSON.parse(localStorage.getItem("loggedIn")));
 
@@ -87,6 +89,13 @@ export default function TripFinderDisplay() {
     let uniqueTripNames = uniq(tripNames);
     let tripsNestedDepartures = [];
 
+    let imageUrls = [];
+    for (let i in uniqueTripNames) {
+        imageUrls.push("https://picsum.photos/200/300?random=" + i);
+    }
+
+    console.log(tripsNestedDepartures);
+
     for (let i in uniqueTripNames) {
         let departures = [];
         for (let j in tripList) {
@@ -105,6 +114,7 @@ export default function TripFinderDisplay() {
 
         tripsNestedDepartures.push({
             tripName: uniqueTripNames[i],
+            tripImage: imageUrls[i],
             departures: departures
         });
     }
@@ -135,14 +145,45 @@ export default function TripFinderDisplay() {
         return (
             <li key={trip.tripname}>
                 <h2>{trip.tripName}</h2>
-                <ol>
+                <ul>
                     {trip.departures.map(departure => {
                         return <li>{departure.departureCode}</li>;
                     })}
-                </ol>
+                </ul>
             </li>
         );
     });
+
+    const test = (
+        <div className={classes.root}>
+            <GridList cellHeight={360} cols={2} className={classes.gridList}>
+                <GridListTile
+                    key="Subheader"
+                    cols={2}
+                    style={{ height: "auto" }}
+                >
+                    <ListSubheader component="div">December</ListSubheader>
+                </GridListTile>
+                {tripsNestedDepartures.map(trip => (
+                    <GridListTile>
+                        <img src={trip.tripImage} alt={trip.tripName} />
+                        <GridListTileBar
+                            title={trip.tripName}
+                            subtitle={<span>by: {trip.tripName}</span>}
+                            actionIcon={
+                                <IconButton
+                                    aria-label={`info about ${trip.tripName}`}
+                                    className={classes.icon}
+                                >
+                                    <InfoIcon />
+                                </IconButton>
+                            }
+                        />
+                    </GridListTile>
+                ))}
+            </GridList>
+        </div>
+    );
 
     //RENDER
     return (

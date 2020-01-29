@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button";
 
 import GetSubReddit from "../api/GetSubReddit";
 import GetTripFinderData from "../api/GetTripFinderData";
+import GetItineraryData from "../api/GetItineraryData";
+import GetDepartures from "../api/GetDepartures";
 
 export default function Counter() {
     //SET LOGIN STATE
@@ -115,6 +117,26 @@ export default function Counter() {
                         }}
                     >
                         Get Tripfinder Data
+                    </Button>
+                    <p></p>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={function() {
+                            GetItineraryData();
+                        }}
+                    >
+                        Get Itinerary Data
+                    </Button>
+                    <p></p>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={function() {
+                            GetDepartures();
+                        }}
+                    >
+                        Get 2020 Departure Data
                     </Button>
                 </div>
             </div>
