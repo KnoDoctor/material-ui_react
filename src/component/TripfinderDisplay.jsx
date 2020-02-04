@@ -190,7 +190,7 @@ export default function TripFinderDisplay() {
         <div className="container">
             <div className={classes.root}>
                 <div>
-                    <ul>{tripsWithNestedDepartures}</ul>
+                    <ul>{test}</ul>
                 </div>
             </div>
         </div>

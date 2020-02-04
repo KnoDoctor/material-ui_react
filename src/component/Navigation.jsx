@@ -32,6 +32,7 @@ import Settings from "./Settings";
 import Login from "./Login";
 import TripCodeLookup from "./TripCodeLookup";
 import TripfinderDisplay from "./TripfinderDisplay";
+import TravellerLookup from "./TravellerLookup";
 
 //API
 import HandleLogout from "../api/HandleLogout";
@@ -274,6 +275,14 @@ export default function Navigation(props) {
                                 <ListItemText primary="Home" />
                             </ListItem>
                         </Link>
+                        <Link to={props.appRoutes.TravellerLookup.url}>
+                            <ListItem button key="TravellerLookup">
+                                <ListItemIcon>
+                                    <SearchIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Traveller Lookup" />
+                            </ListItem>
+                        </Link>
                         <Link to={props.appRoutes.TripCodeLookup.url}>
                             <ListItem button key="TripCodeLookup">
                                 <ListItemIcon>
@@ -329,6 +338,9 @@ export default function Navigation(props) {
                     <Switch>
                         <Route path={props.appRoutes.TripCodeLookup.url}>
                             <TripCodeLookup />
+                        </Route>
+                        <Route path={props.appRoutes.TravellerLookup.url}>
+                            <TravellerLookup />
                         </Route>
                         <Route path={props.appRoutes.TripfinderDisplay.url}>
                             <TripfinderDisplay />

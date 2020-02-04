@@ -7,6 +7,7 @@ import GetSubReddit from "../api/GetSubReddit";
 import GetTripFinderData from "../api/GetTripFinderData";
 import GetItineraryData from "../api/GetItineraryData";
 import GetDepartures from "../api/GetDepartures";
+import GetContactInfoNewEndpoint from "../api/GetContactInfoNewEndpoint";
 
 export default function Counter() {
     //SET LOGIN STATE
@@ -14,24 +15,26 @@ export default function Counter() {
 
     //SET INITIAL STATE OF VARIABLES
     let initialMessage;
-    let name;
     if (loginState === false) {
         initialMessage = "You are logged out";
-        name = "";
     } else {
         initialMessage = JSON.parse(sessionStorage.getItem("upcomingTrips"))
             .upcomingTrips[0].p15_name;
-        name =
-            JSON.parse(sessionStorage.getItem("contactInfo")).contactInfo
-                .p15_title +
-            " " +
-            JSON.parse(sessionStorage.getItem("contactInfo")).contactInfo
-                .lastname;
     }
 
     //MANAGE STATE OF VARIABLES
     const [count, setCount] = useState(0);
     const [message, setMessage] = useState(initialMessage);
+    const [name, setName] = useState(
+        JSON.parse(sessionStorage.getItem("contactInfoNewEndpoint"))
+            .contactSummary[0].p15_title +
+            " " +
+            JSON.parse(sessionStorage.getItem("contactInfoNewEndpoint"))
+                .contactSummary[0].firstname +
+            " " +
+            JSON.parse(sessionStorage.getItem("contactInfoNewEndpoint"))
+                .contactSummary[0].lastname
+    );
     const [tripCode, setTripCode] = useState("");
     const [tripName, setTripName] = useState("");
     const [tripActivityLevel, setTripActivityLevel] = useState("");
@@ -137,6 +140,35 @@ export default function Counter() {
                         }}
                     >
                         Get 2020 Departure Data
+                    </Button>
+                    <p></p>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={function() {
+                            GetContactInfoNewEndpoint("barfieldjt@gmail.com");
+                            setName(
+                                JSON.parse(
+                                    sessionStorage.getItem(
+                                        "contactInfoNewEndpoint"
+                                    )
+                                ).contactSummary[0].p15_title +
+                                    " " +
+                                    JSON.parse(
+                                        sessionStorage.getItem(
+                                            "contactInfoNewEndpoint"
+                                        )
+                                    ).contactSummary[0].firstname +
+                                    " " +
+                                    JSON.parse(
+                                        sessionStorage.getItem(
+                                            "contactInfoNewEndpoint"
+                                        )
+                                    ).contactSummary[0].lastname
+                            );
+                        }}
+                    >
+                        Get Contact Entity
                     </Button>
                 </div>
             </div>
