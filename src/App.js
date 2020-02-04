@@ -8,9 +8,11 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 //Bring In API
 import GetUpcomingTrips from "./api/GetUpcomingTrips";
+import GetTripFinderData from "./api/GetTripFinderData";
 
 //Call APIs
 GetUpcomingTrips();
+GetTripFinderData();
 // GetContactInfo();
 
 //Setup App Routes
@@ -22,6 +24,10 @@ const appRoutes = {
     TripCodeLookup: {
         pageName: "Trip Code Lookup",
         url: "/trip-code-lookup"
+    },
+    TravellerLookup: {
+        pageName: "Traveler Lookup",
+        url: "/traveller-lookup"
     },
     TripfinderDisplay: {
         pageName: "Tripfinder Display",
